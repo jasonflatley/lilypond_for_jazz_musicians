@@ -6,7 +6,7 @@ tune_subtitle = "(Subtitle goes here)"
 tune_tempo = "Straight Eights"
 
 
-\include "../lilypond_include_files/lilypond_include_file_lead_sheet.ily"
+\include "../../lilypond_include_files/lilypond_include_file_lead_sheet.ily"
 
 
 % Set to ##t if your score is less than one page:
