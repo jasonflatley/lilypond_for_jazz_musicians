@@ -1,12 +1,12 @@
 
 
 
-tune_title = ""
-tune_subtitle = ""
-tune_tempo = ""
+tune_title = "Oboe Etude 2"
+tune_subtitle = "(Subtitle goes here)"
+tune_tempo = "Andante"
 
 
-\include "lilypond_include_file_lead_sheet.ily"
+\include "../lilypond_include_files/lilypond_include_file_legit.ily"
 
 
 % Set to ##t if your score is less than one page:
@@ -19,7 +19,6 @@ ragged-bottom = ##f
 theChords = \chordmode { \transpose c c { 
 \set chordNameExceptions = #chExceptions
 \override ParenthesesItem.font-size = #2
-
 
 }}
 
@@ -35,6 +34,30 @@ theNotes = \transpose c c { \relative c' {
 \override Glissando #'style = #' trill
 
 
+c4 c c c
+c c c c 
+c c c c 
+c c c c
+
+c4 c c c
+c c c c 
+c c c c 
+c c c c
+
+c4 c c c
+c c c c 
+c c c c 
+c c c c
+
+c4 c c c
+c c c c 
+c c c c 
+c c c c
+
+c4 c c c
+c c c c 
+c c c c 
+c c c c \bar "|."
 
 }}
 
@@ -58,17 +81,17 @@ chords
 \new ChordNames \theChords
 \new Voice \with {\consists "Pitch_squash_engraver"} \theNotes
 %\addlyrics { \theWords }
-
 >>
-\layout{
+\layout {
 \context{\Lyrics 
 \override LyricText.font-name = #"New Century Schoolbook"
 \override LyricText.self-alignment-X = #LEFT
 }
 }
-
 %\midi {\tempo 4 = 200}
 }
+
+
 
 
 

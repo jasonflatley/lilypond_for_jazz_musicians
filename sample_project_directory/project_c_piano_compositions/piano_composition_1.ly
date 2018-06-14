@@ -1,18 +1,20 @@
 
 
 
-tune_title = "One Staff Legit Template Example"
+
+tune_title = "Piano Composition 1"
 tune_subtitle = "(Subtitle goes here)"
-tune_tempo = "Andante"
+tune_tempo = "Moderato"
 
 
-\include "lilypond_include_file_legit.ily"
+\include "../lilypond_include_files/lilypond_include_file_legit.ily"
 
 
 % Set to ##t if your score is less than one page:
 \paper {
 ragged-last-bottom = ##f
 ragged-bottom = ##f
+page-count = 1
 }
 
 
@@ -20,11 +22,13 @@ theChords = \chordmode { \transpose c c {
 \set chordNameExceptions = #chExceptions
 \override ParenthesesItem.font-size = #2
 
+% Include chord names if necessary
+
 }}
 
 
 
-theNotes = \transpose c c { \relative c' { 
+theTopNotes = \transpose c c { \relative c' { 
 \set Staff.midiInstrument = "acoustic grand"
 \numericTimeSignature
 \set Staff.printKeyCancellation = ##f
@@ -33,34 +37,47 @@ theNotes = \transpose c c { \relative c' {
 \once \override Score.MetronomeMark #'extra-offset = #'(0.0 . 2.0)
 \override Glissando #'style = #' trill
 
+<c e>4 <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
 
-c4 c c c
-c c c c 
-c c c c 
-c c c c
+<c e>4 <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
 
-c4 c c c
-c c c c 
-c c c c 
-c c c c
+<c e>4 <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
 
-c4 c c c
-c c c c 
-c c c c 
-c c c c
+<c e>4 <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e> \bar "|."
 
-c4 c c c
-c c c c 
-c c c c 
-c c c c
 
-c4 c c c
-c c c c 
-c c c c 
-c c c c \bar "|."
 
 }}
 
+theBottomNotes = \transpose c c { \relative c { 
+\set Staff.midiInstrument = "acoustic grand"
+\numericTimeSignature
+\set Staff.printKeyCancellation = ##f
+\override ParenthesesItem.font-size = #5
+\override ParenthesesItem.padding = #1
+\override Glissando #'style = #' trill
+\clef bass
+
+c1 c c c
+c c c c
+c c c c
+c c c c
+
+
+
+}}
 
 
 
@@ -79,10 +96,15 @@ chords
 <<
 \set Score.markFormatter = #format-mark-box-alphabet
 \new ChordNames \theChords
-\new Voice \with {\consists "Pitch_squash_engraver"} \theNotes
+\new PianoStaff <<
+
+\new Staff \theTopNotes
+\new Staff \theBottomNotes
 %\addlyrics { \theWords }
 >>
-\layout {
+>>
+\layout{
+\context { \Voice \consists "Pitch_squash_engraver"}
 \context{\Lyrics 
 \override LyricText.font-name = #"New Century Schoolbook"
 \override LyricText.self-alignment-X = #LEFT
@@ -90,6 +112,13 @@ chords
 }
 %\midi {\tempo 4 = 200}
 }
+
+
+
+
+
+
+
 
 
 

@@ -1,18 +1,20 @@
 
 
 
+
 tune_title = ""
 tune_subtitle = ""
 tune_tempo = ""
 
 
-\include "lilypond_include_file_legit.ily"
+\include "../lilypond_include_files/lilypond_include_file_lead_sheet.ily"
 
 
 % Set to ##t if your score is less than one page:
 \paper {
 ragged-last-bottom = ##f
 ragged-bottom = ##f
+page-count = 2
 }
 
 
@@ -24,7 +26,7 @@ theChords = \chordmode { \transpose c c {
 
 
 
-theNotes = \transpose c c { \relative c' { 
+theTopNotes = \transpose c c { \relative c' { 
 \set Staff.midiInstrument = "acoustic grand"
 \numericTimeSignature
 \set Staff.printKeyCancellation = ##f
@@ -34,16 +36,28 @@ theNotes = \transpose c c { \relative c' {
 \override Glissando #'style = #' trill
 
 
+
+
 }}
 
+theBottomNotes = \transpose c c { \relative c { 
+\set Staff.midiInstrument = "acoustic grand"
+\numericTimeSignature
+\set Staff.printKeyCancellation = ##f
+\override ParenthesesItem.font-size = #5
+\override ParenthesesItem.padding = #1
+\override Glissando #'style = #' trill
+\clef bass
+
+
+
+}}
 
 
 
 theWords = \lyricmode {
 Lyrics lyrics lyrics etc.
 }
-
-
 
 
 
@@ -56,10 +70,15 @@ chords
 <<
 \set Score.markFormatter = #format-mark-box-alphabet
 \new ChordNames \theChords
-\new Voice \with {\consists "Pitch_squash_engraver"} \theNotes
+\new GrandStaff <<
+
+\new Staff \theTopNotes
+\new Staff \theBottomNotes
 %\addlyrics { \theWords }
 >>
-\layout {
+>>
+\layout{
+\context { \Voice \consists "Pitch_squash_engraver"}
 \context{\Lyrics 
 \override LyricText.font-name = #"New Century Schoolbook"
 \override LyricText.self-alignment-X = #LEFT
@@ -67,6 +86,10 @@ chords
 }
 %\midi {\tempo 4 = 200}
 }
+
+
+
+
 
 
 

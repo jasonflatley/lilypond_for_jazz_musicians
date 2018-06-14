@@ -2,25 +2,27 @@
 
 
 
-tune_title = ""
-tune_subtitle = ""
-tune_tempo = ""
+tune_title = "Lilypond Legit Piano Template Example"
+tune_subtitle = "(Subtitle goes here)"
+tune_tempo = "Moderato"
 
 
-\include "lilypond_include_file_lead_sheet.ily"
+\include "../lilypond_include_files/lilypond_include_file_legit.ily"
 
 
 % Set to ##t if your score is less than one page:
 \paper {
 ragged-last-bottom = ##f
 ragged-bottom = ##f
-page-count = 2
+page-count = 1
 }
 
 
 theChords = \chordmode { \transpose c c { 
 \set chordNameExceptions = #chExceptions
 \override ParenthesesItem.font-size = #2
+
+% Include chord names if necessary
 
 }}
 
@@ -35,6 +37,25 @@ theTopNotes = \transpose c c { \relative c' {
 \once \override Score.MetronomeMark #'extra-offset = #'(0.0 . 2.0)
 \override Glissando #'style = #' trill
 
+<c e>4 <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+
+<c e>4 <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+
+<c e>4 <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+
+<c e>4 <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e>
+<c e> <c e> <c e> <c e> \bar "|."
 
 
 
@@ -48,6 +69,11 @@ theBottomNotes = \transpose c c { \relative c {
 \override ParenthesesItem.padding = #1
 \override Glissando #'style = #' trill
 \clef bass
+
+c1 c c c
+c c c c
+c c c c
+c c c c
 
 
 
@@ -70,7 +96,7 @@ chords
 <<
 \set Score.markFormatter = #format-mark-box-alphabet
 \new ChordNames \theChords
-\new GrandStaff <<
+\new PianoStaff <<
 
 \new Staff \theTopNotes
 \new Staff \theBottomNotes
@@ -86,6 +112,10 @@ chords
 }
 %\midi {\tempo 4 = 200}
 }
+
+
+
+
 
 
 

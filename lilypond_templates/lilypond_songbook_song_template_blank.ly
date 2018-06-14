@@ -2,18 +2,34 @@
 
 
 
-tune_title = ""
-tune_subtitle = ""
-tune_tempo = ""
 
 
-\include "lilypond_include_file_legit.ily"
+\include "../lilypond_include_files/lilypond_include_file_songbook.ily"
+
+
+% Assemble the header
+\header {
+title = ""
+subtitle = ""
+composer = ""
+arranger = ""
+tagline = ##f
+}
 
 
 % Set to ##t if your score is less than one page:
 \paper {
 ragged-last-bottom = ##f
 ragged-bottom = ##f
+
+
+% need to adjust extra lyrics spacing sometimes
+last-bottom-spacing =
+    #'((basic-distance . 42)
+       (minimum-distance . 12)
+       (padding . 22)
+       (stretchability . 12))
+
 
 }
 
@@ -22,12 +38,11 @@ theChords = \chordmode { \transpose c c {
 \set chordNameExceptions = #chExceptions
 \override ParenthesesItem.font-size = #2
 
-
 }}
 
 
 
-theTopNotes = \transpose c c { \relative c' { 
+theNotes = \transpose c c { \relative c' { 
 \set Staff.midiInstrument = "acoustic grand"
 \numericTimeSignature
 \set Staff.printKeyCancellation = ##f
@@ -36,30 +51,39 @@ theTopNotes = \transpose c c { \relative c' {
 \once \override Score.MetronomeMark #'extra-offset = #'(0.0 . 2.0)
 \override Glissando #'style = #' trill
 
+\tempo "Ballad" 4=80
 
 
 
 }}
 
-theBottomNotes = \transpose c c { \relative c { 
-\set Staff.midiInstrument = "acoustic grand"
-\numericTimeSignature
-\set Staff.printKeyCancellation = ##f
-\override ParenthesesItem.font-size = #5
-\override ParenthesesItem.padding = #1
-\override Glissando #'style = #' trill
-\clef bass
 
 
-
-
-}}
 
 
 
 theWords = \lyricmode {
-Lyrics lyrics lyrics etc.
+
+
+<<
+{
+% first line
+ 
 }
+
+\new Lyrics { 
+\set associatedVoice = "theNotes"
+% second line
+
+
+}
+
+>>
+
+}
+
+
+
 
 
 
@@ -74,31 +98,19 @@ chords
 <<
 \set Score.markFormatter = #format-mark-box-alphabet
 \new ChordNames \theChords
-\new PianoStaff <<
+\new Staff \with {\consists "Pitch_squash_engraver"} \theNotes
+\addlyrics { \theWords }
 
-\new Staff \theTopNotes
-\new Staff \theBottomNotes
-%\addlyrics { \theWords }
->>
 >>
 \layout{
-\context { \Voice \consists "Pitch_squash_engraver"}
+\context {\Score \remove "Bar_number_engraver"}
 \context{\Lyrics 
 \override LyricText.font-name = #"New Century Schoolbook"
 \override LyricText.self-alignment-X = #LEFT
-}
-}
+}}
 %\midi {\tempo 4 = 200}
+
 }
-
-
-
-
-
-
-
-
-
 
 
 

@@ -4,7 +4,7 @@
 
 
 
-\include "lilypond_include_file_songbook.ily"
+\include "../lilypond_include_files/lilypond_include_file_songbook.ily"
 
 
 % Assemble the header
